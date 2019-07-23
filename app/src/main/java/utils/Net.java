@@ -1,0 +1,89 @@
+package utils;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+
+public class Net {
+
+    @SuppressLint("StaticFieldLeak")
+    private static Net mInstance;
+    @SuppressWarnings({"unused", "FieldCanBeLocal"})
+    private Context context;
+    private HashMap<String, String> responseValues = new HashMap<>();
+    private Observable<HashMap<String, String>> requests;
+
+    @SuppressLint("CommitPrefEdits")
+    private Net(Context context) {
+        this.context = context;
+    }
+
+    public static synchronized Net getInstance(Context context) {
+        if (mInstance == null)
+            mInstance = new Net(context);
+        return mInstance;
+    }
+
+
+    public Net setRequestZip(HashMap<String, ObservableSource<String>> requestObservables) {
+
+
+        final List<ObservableSource<String>> lists = new ArrayList<>();
+        final List<String> apiNames = new ArrayList<>();
+
+
+        for (Map.Entry<String, ObservableSource<String>> currentObservable : requestObservables.entrySet()) {
+            lists.add(currentObservable.getValue());
+            apiNames.add(currentObservable.getKey());
+        }
+
+
+        requests = Observable.zip(lists, objects -> {
+            HashMap<String, String> requestList = new HashMap<>();
+            for (int i = 0; i < objects.length; i++) {
+                requestList.put(apiNames.get(i), (String) objects[i]);
+            }
+            return requestList;
+        });
+
+
+        return this;
+    }
+
+
+    public void doMakeApiCall(final ApiTaskDelegate apiTaskDelegate) {
+
+
+        CompositeDisposable disposables = new CompositeDisposable();
+
+        disposables.add(requests.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<HashMap<String, String>>() {
+                    @Override
+                    public void onNext(HashMap<String, String> responses) {
+                        responseValues = responses;
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        apiTaskDelegate.onErrorOccured(e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        apiTaskDelegate.onTaskCompleted(responseValues);
+                    }
+                }));
+    }
+}

@@ -61,10 +61,6 @@ public class DateUtils {
         Date todate1 = cal.getTime();
         String fromDate = dateFormat.format(todate1);
 
-
-        Log.i(TAG, "getDateUTC: :::::::: " + fromDate);
-        Log.i(TAG, "getDateUTC: :::::::: " + getUTCdatetimeAsDate());
-
         return formatedTime;
     }
 

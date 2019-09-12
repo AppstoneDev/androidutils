@@ -13,7 +13,7 @@ public class ApiHandler {
 
     private Api api;
 
-    public ApiHandler(){
+    public ApiHandler(String URL){
         HttpLoggingInterceptor.Level logLevel = HttpLoggingInterceptor.Level.BODY;
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(logLevel);
@@ -26,7 +26,7 @@ public class ApiHandler {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URLs.BASE_URL)
+                .baseUrl(URL)
                 .client(okHttpClient)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

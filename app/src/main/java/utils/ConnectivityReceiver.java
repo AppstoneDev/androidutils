@@ -13,7 +13,7 @@ import android.telephony.TelephonyManager;
 public class ConnectivityReceiver extends BroadcastReceiver {
     private ConnectivityReceiverListener mConnectivityReceiverListener;
 
-    ConnectivityReceiver(ConnectivityReceiverListener listener) {
+    public ConnectivityReceiver(ConnectivityReceiverListener listener) {
         mConnectivityReceiverListener = listener;
     }
 

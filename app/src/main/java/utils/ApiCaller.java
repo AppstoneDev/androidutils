@@ -4,14 +4,14 @@ import java.util.HashMap;
 
 
 abstract public class ApiCaller {
-    abstract protected String getURL();
+    abstract public String getURL();
 
-    abstract protected HashMap<String, Object> getParams();
+    abstract public HashMap<String, Object> getParams();
 
-    protected Api api;
+    private Api api;
     private static ApiCaller mInstance;
 
-    protected Api getAPI() {
+    public Api getAPI() {
         api = new ApiHandler().getApi();
         return api;
     }

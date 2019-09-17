@@ -13,7 +13,9 @@ public class ApiHandler {
 
     private Api api;
 
-    public ApiHandler(String URL){
+    private static String URL;
+
+    public ApiHandler(){
         HttpLoggingInterceptor.Level logLevel = HttpLoggingInterceptor.Level.BODY;
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(logLevel);
@@ -37,5 +39,11 @@ public class ApiHandler {
 
     public Api getApi() {
         return api;
+    }
+
+
+
+    public static void setBaseURL(String baseURL){
+        URL = baseURL;
     }
 }

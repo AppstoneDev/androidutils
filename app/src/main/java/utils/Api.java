@@ -11,7 +11,7 @@ import retrofit2.http.Url;
 
 public interface Api {
 
-    
+
     @FormUrlEncoded
     @POST
     Observable<String> getReponse(@Url String url, @HeaderMap HashMap<String, String> headers, @FieldMap HashMap<String, Object> params);

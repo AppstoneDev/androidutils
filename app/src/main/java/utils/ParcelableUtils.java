@@ -179,6 +179,30 @@ public class ParcelableUtils {
         }
     }
 
+    public static void write(Parcel dest, ArrayList<String> fields) {
+        if (fields == null) {
+            dest.writeInt(-1);
+        } else {
+            dest.writeInt(fields.size());
+            for (String field : fields) {
+                dest.writeString(field);
+            }
+        }
+    }
+
+    public static ArrayList<String> readArrayList(Parcel source) {
+        int size = source.readInt();
+        if (size == -1) {
+            return null;
+        }
+
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            list.add(source.readString());
+        }
+        return list;
+    }
+
     public static Double readDouble(Parcel source) {
         if (source.readByte() == 1) {
             return source.readDouble();

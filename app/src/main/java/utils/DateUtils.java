@@ -1,5 +1,6 @@
 package utils;
 
+import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
@@ -110,6 +111,42 @@ public class DateUtils {
         return formattedTime;
 
 
+    }
+
+    public static int getYearInNumber() {
+        int yearvalue;
+        Calendar cal = Calendar.getInstance();
+
+        SimpleDateFormat yearFormatter = new SimpleDateFormat("yyyy", Locale.getDefault());
+        String yearval = yearFormatter.format(cal.getTime());
+
+        yearvalue = Integer.parseInt(yearval);
+
+        return yearvalue;
+    }
+
+    public static int getMonthInNumber() {
+        int monthvalue;
+        Calendar cal = Calendar.getInstance();
+
+        SimpleDateFormat monthFormatter = new SimpleDateFormat("MM", Locale.getDefault());
+        String monthval = monthFormatter.format(cal.getTime());
+
+        monthvalue = Integer.parseInt(monthval);
+
+        return monthvalue;
+    }
+
+    public static int getDateInNumber(){
+        int datevalue;
+        Calendar cal = Calendar.getInstance();
+
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd", Locale.getDefault());
+        String dateval = dateFormatter.format(cal.getTime());
+
+        datevalue = Integer.parseInt(dateval);
+
+        return datevalue;
     }
 
 }

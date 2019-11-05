@@ -52,6 +52,21 @@ public class DateUtils {
         return formatedTime;
     }
 
+    public static String getTimeAsHourMinute(String inputTime) {
+        String formatedTime = "";
+
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+        DateFormat outputFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+
+        try {
+            Date date = inputFormat.parse(inputTime);
+            formatedTime = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return formatedTime;
+    }
+
     public static String getDateUTC() {
         String formatedTime = "";
 

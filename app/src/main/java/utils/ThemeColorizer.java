@@ -2,6 +2,7 @@ package utils;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -35,6 +36,16 @@ public class ThemeColorizer {
             view.setBackgroundColor(context.getResources().getColor(R.color.colorBlack));
         }else{
             view.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
+        }
+    }
+
+    public static void setCheckBoxBackgroundColor(Context context, CheckBox view, boolean isDarkMode){
+        if(isDarkMode){
+            view.setBackgroundColor(context.getResources().getColor(R.color.colorBlack));
+            view.setTextColor(context.getResources().getColor(R.color.colorBlack));
+        }else{
+            view.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
+            view.setTextColor(context.getResources().getColor(R.color.colorWhite));
         }
     }
 }

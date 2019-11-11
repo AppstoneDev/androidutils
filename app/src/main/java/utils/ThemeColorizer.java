@@ -44,10 +44,10 @@ public class ThemeColorizer {
     public static void setCheckBoxBackgroundColor(Context context, CheckBox view, boolean isDarkMode) {
         if (isDarkMode) {
             view.setBackgroundColor(context.getResources().getColor(R.color.colorBlack));
-            view.setTextColor(context.getResources().getColor(R.color.colorBlack));
+            view.setTextColor(context.getResources().getColor(R.color.colorWhite));
         } else {
             view.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
-            view.setTextColor(context.getResources().getColor(R.color.colorWhite));
+            view.setTextColor(context.getResources().getColor(R.color.colorBlack));
         }
     }
 

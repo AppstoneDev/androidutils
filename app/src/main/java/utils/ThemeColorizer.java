@@ -28,8 +28,10 @@ public class ThemeColorizer {
     public static void setViewEditTextColor(Context context, EditText view, boolean isDarkMode) {
         if (isDarkMode) {
             view.setTextColor(context.getResources().getColor(R.color.colorWhite));
+            view.setHintTextColor(context.getResources().getColor(R.color.colorWhite));
         } else {
             view.setTextColor(context.getResources().getColor(R.color.colorBlack));
+            view.setHintTextColor(context.getResources().getColor(R.color.colorBlack));
         }
     }
 

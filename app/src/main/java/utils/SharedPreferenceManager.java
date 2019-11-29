@@ -56,8 +56,8 @@ public class SharedPreferenceManager {
     }
 
     public long getLong(String key){
-        return  preferences.getLong(key,-1L);
+        return  preferences.getLong(key,-9223372036854775807L);
     }
-    
+
 
 }

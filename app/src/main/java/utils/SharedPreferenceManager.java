@@ -51,4 +51,13 @@ public class SharedPreferenceManager {
         return preferences.getInt(key, -1);
     }
 
+    public void setLong(String key,long value){
+        getEditor().putLong(key,value).apply();
+    }
+
+    public long getLong(String key){
+        return  preferences.getLong(key,-1L);
+    }
+    
+
 }

@@ -37,6 +37,22 @@ public class DateUtils {
         return formatedDate;
     }
 
+
+    public static String getDateAs_dd_MMM_yyyy(String inputDate) {
+        String formatedDate = "";
+
+        DateFormat outputFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+
+        try {
+            Date date = inputFormat.parse(inputDate);
+            formatedDate = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return formatedDate;
+    }
+
     public static String getTimeNew(String inputTime) {
         String formatedTime = "";
 

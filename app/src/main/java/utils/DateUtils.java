@@ -152,7 +152,7 @@ public class DateUtils {
         return monthvalue;
     }
 
-    public static int getDateInNumber(){
+    public static int getDateInNumber() {
         int datevalue;
         Calendar cal = Calendar.getInstance();
 
@@ -162,6 +162,16 @@ public class DateUtils {
         datevalue = Integer.parseInt(dateval);
 
         return datevalue;
+    }
+
+
+    public static String getDateTimeInServerFormat() {
+        String dateServerFormat = "";
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
+        dateServerFormat = dateFormat.format(cal.getTime());
+
+        return dateServerFormat;
     }
 
 }

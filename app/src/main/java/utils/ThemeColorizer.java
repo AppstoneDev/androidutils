@@ -62,4 +62,12 @@ public class ThemeColorizer {
 
         }
     }
+
+    public static void setTextViewHintViewColor(Context context, TextView view, boolean isDarkMode) {
+        if (isDarkMode) {
+            view.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.colorHalfWhite, null));
+        } else {
+            view.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.colorHalfGrey, null));
+        }
+    }
 }

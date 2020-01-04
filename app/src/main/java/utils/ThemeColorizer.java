@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
+import com.google.android.material.tabs.TabLayout;
+
 import in.appstone.androidutils.R;
 
 /**
@@ -68,6 +70,16 @@ public class ThemeColorizer {
             view.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.colorHalfWhite, null));
         } else {
             view.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.colorHalfGrey, null));
+        }
+    }
+
+    public static void setTabLayoutColor(Context context, TabLayout view, boolean isDarkMode) {
+        if (isDarkMode) {
+            view.setBackgroundColor(context.getResources().getColor(R.color.colorBlack));
+            view.setTabTextColors(context.getResources().getColor(R.color.colorHalfWhite), context.getResources().getColor(R.color.colorWhite));
+        } else {
+            view.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
+            view.setTabTextColors(context.getResources().getColor(R.color.colorHalfGrey), context.getResources().getColor(R.color.colorBlack));
         }
     }
 }

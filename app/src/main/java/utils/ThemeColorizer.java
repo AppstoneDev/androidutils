@@ -82,4 +82,12 @@ public class ThemeColorizer {
             view.setTabTextColors(context.getResources().getColor(R.color.colorHalfGrey), context.getResources().getColor(R.color.colorBlack));
         }
     }
+
+    public static void setDividerColor(Context context, View view, boolean isDarkMode) {
+        if (isDarkMode) {
+            view.setBackgroundColor(ResourcesCompat.getColor(context.getResources(), R.color.colorDividerWhite, null));
+        } else {
+            view.setBackgroundColor(ResourcesCompat.getColor(context.getResources(), R.color.colorDividerGrey, null));
+        }
+    }
 }

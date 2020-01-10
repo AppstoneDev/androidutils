@@ -102,19 +102,33 @@ public class ThemeColorizer {
                 new int[]{android.R.attr.state_checked},
         };
 
+        int[] trackColors;
+        int[] thumbColors;
+
 
         if (isDarkMode) {
-            int[] thumbColors = new int[]{
-                    R.color.colorHalfWhite,
-                    R.color.colorAccent,
+            thumbColors = new int[]{
+                    context.getResources().getColor(R.color.colorHalfWhite),
+                    context.getResources().getColor(R.color.colorAccent),
             };
 
-            int[] trackColors = new int[]{
-                    R.color.colorWhite,
-                    R.color.colorWhite,
+            trackColors = new int[]{
+                    context.getResources().getColor(R.color.colorWhite),
+                    context.getResources().getColor(R.color.colorWhite),
             };
-            DrawableCompat.setTintList(DrawableCompat.wrap(sw.getThumbDrawable()), new ColorStateList(states, thumbColors));
-            DrawableCompat.setTintList(DrawableCompat.wrap(sw.getTrackDrawable()), new ColorStateList(states, trackColors));
+        }else{
+            thumbColors = new int[]{
+                    context.getResources().getColor(R.color.colorHalfGrey),
+                    context.getResources().getColor(R.color.colorAccent),
+            };
+
+            trackColors = new int[]{
+                    context.getResources().getColor(R.color.colorHalfGrey),
+                    context.getResources().getColor(R.color.colorHalfGrey),
+            };
         }
+
+        DrawableCompat.setTintList(DrawableCompat.wrap(sw.getThumbDrawable()), new ColorStateList(states, thumbColors));
+        DrawableCompat.setTintList(DrawableCompat.wrap(sw.getTrackDrawable()), new ColorStateList(states, trackColors));
     }
 }

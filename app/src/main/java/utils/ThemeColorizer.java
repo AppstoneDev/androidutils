@@ -1,15 +1,18 @@
 package utils;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -90,6 +93,28 @@ public class ThemeColorizer {
             view.setBackgroundColor(ResourcesCompat.getColor(context.getResources(), R.color.colorDividerWhite, null));
         } else {
             view.setBackgroundColor(ResourcesCompat.getColor(context.getResources(), R.color.colorDividerGrey, null));
+        }
+    }
+
+    public static void setSwitchBackgroundColor(Context context, Switch sw, boolean isDarkMode) {
+        int[][] states = new int[][]{
+                new int[]{-android.R.attr.state_checked},
+                new int[]{android.R.attr.state_checked},
+        };
+
+
+        if (isDarkMode) {
+            int[] thumbColors = new int[]{
+                    R.color.colorHalfWhite,
+                    R.color.colorAccent,
+            };
+
+            int[] trackColors = new int[]{
+                    R.color.colorWhite,
+                    R.color.colorWhite,
+            };
+            DrawableCompat.setTintList(DrawableCompat.wrap(sw.getThumbDrawable()), new ColorStateList(states, thumbColors));
+            DrawableCompat.setTintList(DrawableCompat.wrap(sw.getTrackDrawable()), new ColorStateList(states, trackColors));
         }
     }
 }

@@ -1,6 +1,7 @@
 package utils;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -31,6 +32,7 @@ public class ThemeColorizer {
         if (isDarkMode) {
             view.setTextColor(context.getResources().getColor(R.color.colorWhite));
             view.setHintTextColor(context.getResources().getColor(R.color.colorWhite));
+            view.getBackground().mutate().setColorFilter(context.getResources().getColor(R.color.colorHalfWhite), PorterDuff.Mode.SRC_ATOP);
         } else {
             view.setTextColor(context.getResources().getColor(R.color.colorBlack));
             view.setHintTextColor(context.getResources().getColor(R.color.colorBlack));

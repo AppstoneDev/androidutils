@@ -190,4 +190,19 @@ public class DateUtils {
         return dateServerFormat;
     }
 
+    public static String[] getDateMonthYearSepaerate(Date date) {
+        String[] output = new String[3];
+
+        SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.getDefault());
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMM", Locale.getDefault());
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
+
+        output[0] = dayFormat.format(date);
+        output[1] = monthFormat.format(date);
+        output[2] = yearFormat.format(date);
+
+
+        return output;
+    }
+
 }

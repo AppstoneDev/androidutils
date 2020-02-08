@@ -205,4 +205,19 @@ public class DateUtils {
         return output;
     }
 
+    public static String getDateAs_yyyy_MM_dd(String inputDate) {
+        String formatedDate = "";
+
+        DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+
+        try {
+            Date date = inputFormat.parse(inputDate);
+            formatedDate = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return formatedDate;
+    }
+
 }

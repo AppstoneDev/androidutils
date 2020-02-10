@@ -27,6 +27,7 @@ public class DateUtils {
 
         DateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+        inputFormat.setTimeZone(TimeZone.getTimeZone("IST"));
 
         try {
             Date date = inputFormat.parse(inputDate);
@@ -43,6 +44,7 @@ public class DateUtils {
 
         DateFormat outputFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+        inputFormat.setTimeZone(TimeZone.getTimeZone("IST"));
 
         try {
             Date date = inputFormat.parse(inputDate);
@@ -57,6 +59,7 @@ public class DateUtils {
         String formatedTime = "";
 
         DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+        inputFormat.setTimeZone(TimeZone.getTimeZone("IST"));
         DateFormat outputFormat = new SimpleDateFormat("hh:mm:ss a", Locale.getDefault());
 
         try {
@@ -72,6 +75,7 @@ public class DateUtils {
         String formatedTime = "";
 
         DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+        inputFormat.setTimeZone(TimeZone.getTimeZone("IST"));
         DateFormat outputFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
 
         try {

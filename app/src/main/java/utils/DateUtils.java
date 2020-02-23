@@ -224,4 +224,22 @@ public class DateUtils {
         return formatedDate;
     }
 
+    public static boolean checkDateIsPreviousForServerTimeStamp(String date) {
+        boolean isPrevious = false;
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+        DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+        try {
+            Date toCheckDate = outputFormat.parse(date);
+            Date currentDate = outputFormat.parse(Calendar.getInstance().getTime().toString());
+            isPrevious = toCheckDate.before(currentDate);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        return isPrevious;
+    }
+
 }

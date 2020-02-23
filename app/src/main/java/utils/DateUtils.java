@@ -230,7 +230,7 @@ public class DateUtils {
         try {
             Date toCheckDate = outputFormat.parse(date);
             Date currentDate = outputFormat.parse(outputFormat.format(Calendar.getInstance().getTime()));
-            isPrevious = currentDate.before(toCheckDate);
+            isPrevious = toCheckDate.before(currentDate);
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -244,7 +244,7 @@ public class DateUtils {
         try {
             Date toCheckDate = outputFormat.parse(date);
             Date currentDate = outputFormat.parse(outputFormat.format(Calendar.getInstance().getTime()));
-            isSameDate = currentDate == toCheckDate;
+            isSameDate = currentDate.equals(toCheckDate);
 
         } catch (ParseException e) {
             e.printStackTrace();

@@ -189,6 +189,7 @@ public class DateUtils {
         String dateServerFormat = "";
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("IST"));
         dateServerFormat = dateFormat.format(cal.getTime());
 
         return dateServerFormat;

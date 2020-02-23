@@ -227,7 +227,6 @@ public class DateUtils {
     public static boolean checkDateIsPreviousForServerTimeStamp(String date) {
         boolean isPrevious = false;
         DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-
         try {
             Date toCheckDate = outputFormat.parse(date);
             Date currentDate = outputFormat.parse(outputFormat.format(Calendar.getInstance().getTime()));
@@ -236,9 +235,21 @@ public class DateUtils {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
         return isPrevious;
+    }
+
+    public static boolean checkDateIsEqualForServerTimeStamp(String date) {
+        boolean isSameDate = false;
+        DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        try {
+            Date toCheckDate = outputFormat.parse(date);
+            Date currentDate = outputFormat.parse(outputFormat.format(Calendar.getInstance().getTime()));
+            isSameDate = currentDate == toCheckDate;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return isSameDate;
     }
 
 }

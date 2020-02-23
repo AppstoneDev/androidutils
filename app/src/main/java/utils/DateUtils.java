@@ -230,7 +230,7 @@ public class DateUtils {
 
         try {
             Date toCheckDate = outputFormat.parse(date);
-            Date currentDate = outputFormat.parse(Calendar.getInstance().getTime().toString());
+            Date currentDate = outputFormat.parse(outputFormat.format(Calendar.getInstance().getTime()));
             isPrevious = currentDate.before(toCheckDate);
 
         } catch (ParseException e) {

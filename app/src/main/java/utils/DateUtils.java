@@ -258,7 +258,7 @@ public class DateUtils {
         return isSameDate;
     }
 
-    public String getTimeDifference(Context context, String dateVal) {
+    public static String getTimeDifference(Context context, String dateVal) {
         String words = "";
 
         try {

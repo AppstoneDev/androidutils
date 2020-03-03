@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">AndroidUtils</string>
+
+
+    <string name="time_ago_seconds">%@ seconds ago</string>
+    <string name="time_ago_minute">A minute ago</string>
+    <string name="time_ago_minutes">%@ minutes ago</string>
+    <string name="time_ago_hour">An hour ago</string>
+    <string name="time_ago_hours">%@ hours ago</string>
+    <string name="time_ago_day">1 day ago</string>
+    <string name="time_ago_days">%@ days ago</string>
+    <string name="time_ago_week">1 week ago</string>
+    <string name="time_ago_weeks">%@ weeks ago</string>
+    <string name="time_ago_month">1 month ago</string>
+    <string name="time_ago_months">%@ months ago</string>
+    <string name="time_ago_year">1 year ago</string>
+    <string name="time_ago_years">%@ years ago</string>
+    <string name="time_ago_yesterday">Yesterday</string>
+    <string name="time_ago_last_week">Last week</string>
 </resources>

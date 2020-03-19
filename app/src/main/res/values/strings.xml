@@ -17,4 +17,6 @@
     <string name="time_ago_years">%@ years ago</string>
     <string name="time_ago_yesterday">Yesterday</string>
     <string name="time_ago_last_week">Last week</string>
+
+    <string name="time_at">at</string>
 </resources>

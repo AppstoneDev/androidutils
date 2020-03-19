@@ -260,7 +260,6 @@ public class DateUtils {
 
     public static String getTimeDifference(Context context, String dateVal) {
         String words = "";
-
         try {
             DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
             Date recDate = outputFormat.parse(dateVal);
@@ -273,63 +272,37 @@ public class DateUtils {
             double days = hours / 24;
             double years = days / 365;
 
-
             if (seconds < 60) {
-
                 words = context.getString(R.string.time_ago_seconds);
                 words = words.replace("%@", String.valueOf((int) seconds));
-
             } else if (seconds < 120) {
-
                 words = context.getString(R.string.time_ago_minute);
-
             } else if (minutes < 60) {
-
                 words = context.getString(R.string.time_ago_minutes);
                 words = words.replace("%@", String.valueOf((int) minutes));
-
             } else if (minutes < 120) {
-
                 words = context.getString(R.string.time_ago_hour);
-
             } else if (hours < 24) {
-
                 words = context.getString(R.string.time_ago_hours);
                 words = words.replace("%@", String.valueOf((int) hours));
-
             } else if (hours < 48) {
-
                 words = context.getString(R.string.time_ago_day);
-
             } else if (days < 7) {
-
                 words = context.getString(R.string.time_ago_days);
                 words = words.replace("%@", String.valueOf((int) days));
-
             } else if (days < 14) {
-
                 words = context.getString(R.string.time_ago_week);
-
             } else if (days >= 14 && days < 30) {
-
                 words = context.getString(R.string.time_ago_weeks);
                 words = words.replace("%@", String.valueOf((int) (days / 7)));
-
             } else if (days < 60) {
-
                 words = context.getString(R.string.time_ago_month);
-
             } else if (days < 365) {
-
                 words = context.getString(R.string.time_ago_months);
                 words = words.replace("%@", String.valueOf((int) (days / 30)));
-
             } else if (years < 2) {
-
                 words = context.getString(R.string.time_ago_year);
-
             } else {
-
                 words = context.getString(R.string.time_ago_years);
                 words = words.replace("%@", String.valueOf((int) years));
             }
@@ -340,4 +313,42 @@ public class DateUtils {
         return words;
     }
 
+    public static String getTimeDifferenceSingeDayCount(Context context, String dateVal) {
+        String words = "";
+        try {
+            DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+            DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+            DateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+            Date recDate = outputFormat.parse(dateVal);
+
+            long diff = new Date().getTime() - recDate.getTime();
+
+            double seconds = Math.abs(diff) / 1000;
+            double minutes = seconds / 60;
+            double hours = minutes / 60;
+
+            if (seconds < 60) {
+                words = context.getString(R.string.time_ago_seconds);
+                words = words.replace("%@", String.valueOf((int) seconds));
+            } else if (seconds < 120) {
+                words = context.getString(R.string.time_ago_minute);
+            } else if (minutes < 60) {
+                words = context.getString(R.string.time_ago_minutes);
+                words = words.replace("%@", String.valueOf((int) minutes));
+            } else if (minutes < 120) {
+                words = context.getString(R.string.time_ago_hour);
+            } else if (hours < 24) {
+                words = context.getString(R.string.time_ago_hours);
+                words = words.replace("%@", String.valueOf((int) hours));
+            } else {
+                String receivedDate = dateFormat.format(recDate);
+                String receivedTime = timeFormat.format(recDate);
+                words = receivedDate.concat(" ").concat(context.getString(R.string.time_at).concat(" ").concat(receivedTime));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return words;
+    }
 }

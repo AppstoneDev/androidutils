@@ -358,7 +358,7 @@ public class DateUtils {
         try {
             DateFormat outputDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             Date recDate = outputDateFormat.parse(date);
-            Date currentDate = outputDateFormat.parse(Calendar.getInstance().getTime().toString());
+            Date currentDate = outputDateFormat.parse(getDateTimeInServerFormat());
 
             if (recDate.after(currentDate)) {
                 isAfter = true;

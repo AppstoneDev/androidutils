@@ -351,4 +351,22 @@ public class DateUtils {
         }
         return words;
     }
+
+    public static boolean isFutureDateYYYYMMDD(String date) {
+        boolean isAfter = false;
+
+        try {
+            DateFormat outputDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            Date recDate = outputDateFormat.parse(date);
+            Date currentDate = outputDateFormat.parse(Calendar.getInstance().getTime().toString());
+
+            if (recDate.after(currentDate)) {
+                isAfter = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return isAfter;
+    }
 }

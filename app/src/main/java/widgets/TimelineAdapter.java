@@ -34,6 +34,11 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.ViewHo
         this.selectedPosition = selectedPosition;
     }
 
+    public void clearSelectedDate() {
+        selectedPosition = -1;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -75,13 +80,14 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.ViewHo
         });
     }
 
-    public void resetCalendar() {
+    private void resetCalendar() {
         calendar.set(timelineView.getYear(), timelineView.getMonth(), timelineView.getDate(),
                 1, 0, 0);
     }
 
     /**
      * Set the position of selected date
+     *
      * @param selectedPosition active date Position
      */
     public void setSelectedPosition(int selectedPosition) {

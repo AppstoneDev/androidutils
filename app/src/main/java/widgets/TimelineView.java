@@ -129,7 +129,7 @@ public class TimelineView extends RecyclerView {
     }
 
     public void resetDates(){
-        adapter.resetCalendar();
+        adapter.clearSelectedDate();
     }
 
     public void deactivateDates(Date[] deactivatedDates) {

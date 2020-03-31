@@ -17,12 +17,9 @@ abstract public class ApiCaller {
     }
 
 
-
     protected boolean parseJSONResponse(String response) {
         return true;
     }
-
-
 
 
 }

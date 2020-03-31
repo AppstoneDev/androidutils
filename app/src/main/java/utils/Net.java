@@ -22,6 +22,7 @@ public class Net {
     @SuppressWarnings({"unused", "FieldCanBeLocal"})
     private Context context;
     private HashMap<String, String> responseValues = new HashMap<>();
+    private String singleResponse = "";
     private Observable<HashMap<String, String>> requests;
 
     @SuppressLint("CommitPrefEdits")
@@ -83,6 +84,33 @@ public class Net {
                     @Override
                     public void onComplete() {
                         apiTaskDelegate.onTaskCompleted(responseValues);
+                    }
+                }));
+    }
+
+    public void doMakeSingleApiCall(ApiCaller caller, HashMap<String, String> headers, SingleApiTaskDelegate apiTaskDelegate) {
+        Api api = new ApiHandler().getApi();
+
+        CompositeDisposable disposable = new CompositeDisposable();
+
+        disposable.add(caller.getAPI().getReponse(caller.getURL(), headers, caller.getParams())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        singleResponse = s;
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        apiTaskDelegate.onErrorOccured(e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        disposable.dispose();
+                        apiTaskDelegate.onTaskCompleted(singleResponse);
                     }
                 }));
     }

@@ -216,7 +216,7 @@ public class DateUtils {
     }
 
 
-    public static String getDDfromDate(String inputDate) {
+    public static String getDDFromDate(String inputDate) {
         String ddValue = "";
 
         DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());

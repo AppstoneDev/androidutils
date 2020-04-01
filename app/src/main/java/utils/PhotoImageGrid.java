@@ -1,6 +1,7 @@
 package utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 
 import java.util.ArrayList;
 
@@ -30,21 +33,30 @@ public class PhotoImageGrid {
         int margin5 = Dimensions.dpToPx(5, context);
 
         if (size == 1) {
-            int singleImageHeight = (int) Math.round(screenWidth * 0.75);
+            Glide.with(context.getApplicationContext())
+                    .asBitmap()
+                    .load(images.get(0))
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
+                            int w = bitmap.getWidth();
+                            int singleImageHeight = bitmap.getHeight();
 
-            LinearLayout singleLayout = new LinearLayout(context);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, singleImageHeight);
-            params.setMargins(margin10, margin10, margin10, margin10);
-            singleLayout.setLayoutParams(params);
-            singleLayout.setBackgroundColor(ResourcesCompat.getColor(context.getResources(), R.color.colorBlack, null));
+                            LinearLayout singleLayout = new LinearLayout(context);
+                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, singleImageHeight);
+                            params.setMargins(margin10, margin10, margin10, margin10);
+                            singleLayout.setLayoutParams(params);
+                            singleLayout.setBackgroundColor(ResourcesCompat.getColor(context.getResources(), R.color.colorBlack, null));
 
-            View singleView = LayoutInflater.from(context).inflate(R.layout.cell_blog_image, null);
-            ImageView mIvImage = singleView.findViewById(R.id.mImageView);
-            mIvImage.setScaleType(ImageView.ScaleType.FIT_XY);
-            Glide.with(context).load(images.get(0)).transform(new PositionedCropTransformation(context, 0f, 0f)).into(mIvImage);
+                            View singleView = LayoutInflater.from(context).inflate(R.layout.cell_blog_image, null);
+                            ImageView mIvImage = singleView.findViewById(R.id.mImageView);
+                            mIvImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                            mIvImage.setImageBitmap(bitmap);
 
-            singleLayout.addView(singleView);
-            mainView.addView(singleLayout);
+                            singleLayout.addView(singleView);
+                            mainView.addView(singleLayout);
+                        }
+                    });
         } else if (size == 2) {
             LinearLayout firstLayout = new LinearLayout(context);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, screenWidth);

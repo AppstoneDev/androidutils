@@ -401,4 +401,19 @@ public class DateUtils {
 
         return isAfter;
     }
+
+    public static String getStartDateTime(String date) {
+        String startDate = "";
+        try {
+            DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'00:00:01.SSS'Z'",  Locale.getDefault());
+
+            Date receivedDate = inputFormat.parse(date);
+            startDate = outputFormat.format(receivedDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return startDate;
+    }
 }

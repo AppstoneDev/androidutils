@@ -215,6 +215,38 @@ public class DateUtils {
         return output;
     }
 
+
+    public static String getDDfromDate(String inputDate) {
+        String ddValue = "";
+
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+        DateFormat outputFormat = new SimpleDateFormat("dd", Locale.getDefault());
+
+        try {
+            Date date = inputFormat.parse(inputDate);
+            ddValue = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return ddValue;
+    }
+
+    public static String getMMMFromDate(String inputDate) {
+        String mmmValue = "";
+
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+        DateFormat outputFormat = new SimpleDateFormat("MMM", Locale.getDefault());
+
+        try {
+            Date date = inputFormat.parse(inputDate);
+            mmmValue = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return mmmValue;
+    }
+
+
     public static String getDateAs_yyyy_MM_dd(String inputDate) {
         String formatedDate = "";
 

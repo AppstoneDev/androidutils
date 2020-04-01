@@ -416,4 +416,19 @@ public class DateUtils {
 
         return startDate;
     }
+
+    public static String getEndDatTime(String date) {
+        String endDate = "";
+        try {
+            DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'23:59:59.SSS'Z'",  Locale.getDefault());
+
+            Date receivedDate = inputFormat.parse(date);
+            endDate = outputFormat.format(receivedDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return endDate;
+    }
 }

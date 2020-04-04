@@ -400,6 +400,25 @@ public class DateUtils {
         return words;
     }
 
+    public static int getDaysDifferenceBetweenTwoDates(String startingDate, String endingDate) {
+        int dayDiff = 0;
+
+        try {
+            DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+
+            Date startDateVal = inputFormat.parse(startingDate);
+            Date endDateVal = inputFormat.parse(endingDate);
+
+            long difference = Math.abs(startDateVal.getTime() - endDateVal.getTime());
+            dayDiff = (int) difference / (24 * 60 * 60 * 1000);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return dayDiff;
+    }
+
     public static boolean isFutureDateYYYYMMDD(String date) {
         boolean isAfter = false;
 
@@ -422,7 +441,7 @@ public class DateUtils {
         String startDate = "";
         try {
             DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'00:00:01.SSS'Z'",  Locale.getDefault());
+            DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'00:00:01.SSS'Z'", Locale.getDefault());
 
             Date receivedDate = inputFormat.parse(date);
             startDate = outputFormat.format(receivedDate);
@@ -437,7 +456,7 @@ public class DateUtils {
         String endDate = "";
         try {
             DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'23:59:59.SSS'Z'",  Locale.getDefault());
+            DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'23:59:59.SSS'Z'", Locale.getDefault());
 
             Date receivedDate = inputFormat.parse(date);
             endDate = outputFormat.format(receivedDate);

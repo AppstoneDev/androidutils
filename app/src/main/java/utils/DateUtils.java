@@ -534,4 +534,51 @@ public class DateUtils {
         }
         return new SimpleDateFormat("dd MMMM yyyy", locale).format(date.getTime());
     }
+
+    public static Date getDateFromTimeMillis(Double date) {
+
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        c.setTimeInMillis(Math.round(date));
+
+        return c.getTime();
+
+    }
+
+    public static boolean chatDayDifference(long previousTimeStamp, long currentTimeStamp) {
+        boolean isPreviousDay = false;
+
+        Date previousDateVal = getDateFromTimeMillis((double) previousTimeStamp);
+        Date currentDateval = getDateFromTimeMillis((double) currentTimeStamp);
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+
+        try {
+            String beforeDate = format.format(previousDateVal);
+            String todayDate = format.format(currentDateval);
+            Date previousDate = format.parse(beforeDate);
+            Date currentDate = format.parse(todayDate);
+
+
+            if (previousDate != currentDate && previousDate != null && previousDate.before(currentDate)) {
+                isPreviousDay = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return isPreviousDay;
+    }
+
+    public static String get12HourFormat(Context context, Date date, Locale locale) {
+        if (date == null) {
+            return "";
+        }
+
+        SimpleDateFormat desiredFormat;
+        desiredFormat = new SimpleDateFormat("hh:mm aa", locale);
+
+        return desiredFormat.format(date.getTime());
+    }
 }

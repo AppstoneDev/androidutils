@@ -1,5 +1,6 @@
 package utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -480,5 +481,57 @@ public class DateUtils {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public static String timeAgoChat(Context context, Date date, Locale locale) {
+        if (date == null) {
+            return "";
+        }
+
+        String words = "";
+
+        try {
+
+            long millis = date.getTime();
+            Date currentDate = Calendar.getInstance().getTime();
+            long diff = currentDate.getTime() - millis;
+
+            double seconds = Math.abs(diff) / 1000;
+            double minutes = seconds / 60;
+            double hours = minutes / 60;
+            double days = hours / 24;
+            double years = days / 365;
+
+
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            String currentDayVal = format.format(currentDate);
+            String previousDayVal = format.format(date);
+            Date currentDay = format.parse(currentDayVal);
+            Date previousDay = format.parse(previousDayVal);
+
+            if (hours < 24) {
+                if (previousDay != null && previousDay.before(currentDay)) {
+                    words = context.getString(R.string.chat_yesterday);
+                } else {
+                    words = context.getString(R.string.chat_today);
+                }
+            } else if (hours > 24 && hours < 48) {
+                words = context.getString(R.string.chat_yesterday);
+            } else {
+                words = getFormatDate7(context, date, locale);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return words.trim();
+    }
+
+    public static String getFormatDate7(Context context, Date date, Locale locale) {
+        if (date == null) {
+            return "";
+        }
+        return new SimpleDateFormat("dd MMMM yyyy", locale).format(date.getTime());
     }
 }

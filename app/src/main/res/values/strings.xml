@@ -19,4 +19,7 @@
     <string name="time_ago_last_week">Last week</string>
 
     <string name="time_at">at</string>
+
+    <string name="chat_today">Today</string>
+    <string name="chat_yesterday">Yesterday</string>
 </resources>

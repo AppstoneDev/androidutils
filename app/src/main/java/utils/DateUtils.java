@@ -466,4 +466,19 @@ public class DateUtils {
 
         return endDate;
     }
+
+    public static String dateToUTCShortSqliteString(Date date) {
+        if (date == null) {
+            return null;
+        }
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd",
+                Locale.ENGLISH);
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        format.setTimeZone(tz);
+        try {
+            return format.format(date);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

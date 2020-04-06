@@ -51,7 +51,7 @@ public class PhotoImageGrid {
                             View singleView = LayoutInflater.from(context).inflate(R.layout.cell_blog_image, null);
                             ImageView mIvImage = singleView.findViewById(R.id.mImageView);
                             mIvImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                            mIvImage.setImageBitmap(bitmap);
+                            Glide.with(context).load(images.get(0)).into(mIvImage);
 
                             singleLayout.addView(singleView);
                             mainView.addView(singleLayout);

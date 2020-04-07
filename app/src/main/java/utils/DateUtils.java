@@ -597,4 +597,23 @@ public class DateUtils {
         }
         return formatedDate;
     }
+
+    public static int getDaysDifferenceBetweenTwoDates_Input_ddMMMyyyy(String startingDate, String endingDate) {
+        int dayDiff = 0;
+
+        try {
+            DateFormat inputFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+
+            Date startDateVal = inputFormat.parse(startingDate);
+            Date endDateVal = inputFormat.parse(endingDate);
+
+            long difference = Math.abs(startDateVal.getTime() - endDateVal.getTime());
+            dayDiff = (int) difference / (24 * 60 * 60 * 1000);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return dayDiff;
+    }
 }

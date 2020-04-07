@@ -581,4 +581,20 @@ public class DateUtils {
 
         return desiredFormat.format(date.getTime());
     }
+
+    public static String getDateAsddMMMyyyy_Input_yyyyMMdd(String inputDate) {
+        String formatedDate = "";
+
+        DateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        inputFormat.setTimeZone(TimeZone.getTimeZone("IST"));
+
+        try {
+            Date date = inputFormat.parse(inputDate);
+            formatedDate = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return formatedDate;
+    }
 }

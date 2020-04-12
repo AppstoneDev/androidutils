@@ -442,12 +442,13 @@ public class DateUtils {
         boolean isCurrentDate = false;
         try {
             DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'00:00:00.SSS'Z'", Locale.getDefault());
-            Calendar cal = Calendar.getInstance();
             Date receivedDate = inputFormat.parse(date);
-            Date currentDate = inputFormat.parse(cal.getTime().toString());
-            if (currentDate.equals(receivedDate)) {
-                isCurrentDate = true;
-            }
+
+            Calendar receivedDateCal = Calendar.getInstance();
+            receivedDateCal.setTime(receivedDate);
+
+            Calendar currentDateCal = Calendar.getInstance();
+            isCurrentDate = currentDateCal.get(Calendar.DAY_OF_YEAR) == receivedDateCal.get(Calendar.DAY_OF_YEAR) && currentDateCal.get(Calendar.YEAR) == receivedDateCal.get(Calendar.YEAR);
         } catch (Exception e) {
             e.printStackTrace();
         }

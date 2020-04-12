@@ -438,6 +438,23 @@ public class DateUtils {
         return isAfter;
     }
 
+    public static boolean isCurrentDate(String date) {
+        boolean isCurrentDate = false;
+        try {
+            DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'00:00:00.SSS'Z'", Locale.getDefault());
+            Calendar cal = Calendar.getInstance();
+            Date receivedDate = inputFormat.parse(date);
+            Date currentDate = inputFormat.parse(cal.getTime().toString());
+            if (currentDate.equals(receivedDate)) {
+                isCurrentDate = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return isCurrentDate;
+    }
+
     public static String getStartDateTime(String date) {
         String startDate = "";
         try {

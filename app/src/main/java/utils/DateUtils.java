@@ -634,4 +634,22 @@ public class DateUtils {
 
         return dayDiff;
     }
+
+    public static boolean checkIfDateBefore_ddMMMyyyy(String startingDate, String endingDate) {
+        boolean isBefore = false;
+        try {
+            DateFormat inputFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+            Date startDateVal = inputFormat.parse(startingDate);
+            Date endDateVal = inputFormat.parse(endingDate);
+
+            if (endDateVal.before(startDateVal)) {
+                isBefore = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return isBefore;
+    }
 }

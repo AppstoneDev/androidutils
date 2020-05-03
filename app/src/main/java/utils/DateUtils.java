@@ -675,4 +675,15 @@ public class DateUtils {
 
         return age;
     }
+
+    public static Date getAsDateFromString(String date) {
+        Date dateVal = new Date();
+        try {
+            DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+            dateVal = outputFormat.parse(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dateVal;
+    }
 }

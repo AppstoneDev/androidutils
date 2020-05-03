@@ -652,4 +652,26 @@ public class DateUtils {
 
         return isBefore;
     }
+
+    public static String getYearsFromDate(String toConvertDate) {
+        String age = "";
+        try {
+            DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+            Date recDate = outputFormat.parse(toConvertDate);
+
+            long diff = new Date().getTime() - recDate.getTime();
+
+            double seconds = Math.abs(diff) / 1000;
+            double minutes = seconds / 60;
+            double hours = minutes / 60;
+            double days = hours / 24;
+            double years = days / 365;
+
+            age = String.valueOf(years);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return age;
+    }
 }

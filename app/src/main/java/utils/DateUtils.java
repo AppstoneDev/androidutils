@@ -665,7 +665,7 @@ public class DateUtils {
             double minutes = seconds / 60;
             double hours = minutes / 60;
             double days = hours / 24;
-            double years = days / 365;
+            double years = days % 365;
 
             age = String.valueOf(years);
         } catch (Exception e) {

@@ -686,4 +686,15 @@ public class DateUtils {
         }
         return dateVal;
     }
+
+    public static String getAsStringFromDate(Date date) {
+        String dateVal = "";
+        try {
+            DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+            dateVal = outputFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dateVal;
+    }
 }

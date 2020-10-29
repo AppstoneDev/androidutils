@@ -701,7 +701,7 @@ public class DateUtils {
     public static String getAsStringFromDate_DDMMMYY_HHMMAA(Date date) {
         String dateVal = "";
         try {
-            DateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy, HH:mm AA", Locale.getDefault());
+            DateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy, HH:mm aa", Locale.getDefault());
             dateVal = outputFormat.format(date);
         } catch (Exception e) {
             e.printStackTrace();

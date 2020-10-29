@@ -697,4 +697,15 @@ public class DateUtils {
         }
         return dateVal;
     }
+
+    public static String getAsStringFromDate_DDMMMYY_HHMMAA(Date date) {
+        String dateVal = "";
+        try {
+            DateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy, HH:mm AA", Locale.getDefault());
+            dateVal = outputFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dateVal;
+    }
 }

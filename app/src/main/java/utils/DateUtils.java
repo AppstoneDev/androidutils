@@ -708,4 +708,19 @@ public class DateUtils {
         }
         return dateVal;
     }
+
+    public static String getAsStringFromString_DDMMMYYYY_HHMMAA(String date) {
+        String dateVal = "";
+        try {
+            DateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy, HH:mm aa", Locale.getDefault());
+            DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+
+            Date convertedDate = inputFormat.parse(date);
+            dateVal = outputFormat.format(convertedDate);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dateVal;
+    }
 }

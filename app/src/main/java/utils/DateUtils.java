@@ -420,6 +420,26 @@ public class DateUtils {
         return dayDiff;
     }
 
+    public static int getDaysDifferenceBetweenTwoDates_DayWise(String startingDate, String endingDate) {
+        int dayDiff = 0;
+
+        try {
+            DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+
+            Date startDateVal = inputFormat.parse(startingDate);
+            Date endDateVal = inputFormat.parse(endingDate);
+
+            long difference = Math.abs(startDateVal.getTime() - endDateVal.getTime());
+            float differValue = difference / (24 * 60 * 60 * 1000);
+            dayDiff = (int) difference / (24 * 60 * 60 * 1000);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return dayDiff;
+    }
+
     public static boolean isFutureDateYYYYMMDD(String date) {
         boolean isAfter = false;
 

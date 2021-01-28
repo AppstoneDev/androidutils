@@ -430,8 +430,10 @@ public class DateUtils {
             Date endDateVal = inputFormat.parse(endingDate);
 
             long difference = Math.abs(startDateVal.getTime() - endDateVal.getTime());
-            float differValue = difference / (24 * 60 * 60 * 1000);
-            dayDiff = (int) difference / (24 * 60 * 60 * 1000);
+            int dayWiseValue = (int) difference / (24 * 60 * 60 * 1000);
+            float reminderValue = difference % (24 * 60 * 60 * 1000);
+
+            dayDiff = reminderValue > 5 ? dayWiseValue + 1 : dayWiseValue;
 
         } catch (Exception e) {
             e.printStackTrace();

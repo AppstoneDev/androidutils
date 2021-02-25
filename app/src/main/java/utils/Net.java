@@ -89,7 +89,7 @@ public class Net {
     }
 
     public void doMakeSingleApiCall(ApiCaller caller, HashMap<String, String> headers, SingleApiTaskDelegate apiTaskDelegate) {
-        Api api = new ApiHandler().getApi();
+//        Api api = new ApiHandler().getApi();
 
         CompositeDisposable disposable = new CompositeDisposable();
 
@@ -113,5 +113,104 @@ public class Net {
                         apiTaskDelegate.onTaskCompleted(singleResponse);
                     }
                 }));
+    }
+
+
+    public void doMakeSingleApiCallRAW(Api.APIMETHODS method, ApiCaller caller, HashMap<String, String> headers, SingleApiTaskDelegate apiTaskDelegate) {
+        CompositeDisposable disposable = new CompositeDisposable();
+
+        switch (method) {
+            case PUT:
+                disposable.add(caller.getAPI().performPutMethodRAW(caller.getURL(), headers, caller.getParams())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableObserver<String>() {
+                            @Override
+                            public void onNext(String s) {
+                                singleResponse = s;
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                apiTaskDelegate.onErrorOccured(e.getMessage());
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                disposable.dispose();
+                                apiTaskDelegate.onTaskCompleted(singleResponse);
+                            }
+                        }));
+                break;
+
+            case DELETE:
+                disposable.add(caller.getAPI().performDeleteMethodRAW(caller.getURL(), headers, caller.getParams())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableObserver<String>() {
+                            @Override
+                            public void onNext(String s) {
+                                singleResponse = s;
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                apiTaskDelegate.onErrorOccured(e.getMessage());
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                disposable.dispose();
+                                apiTaskDelegate.onTaskCompleted(singleResponse);
+                            }
+                        }));
+                break;
+
+            case POST:
+                disposable.add(caller.getAPI().performPostMethodRAW(caller.getURL(), headers, caller.getParams())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableObserver<String>() {
+                            @Override
+                            public void onNext(String s) {
+                                singleResponse = s;
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                apiTaskDelegate.onErrorOccured(e.getMessage());
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                disposable.dispose();
+                                apiTaskDelegate.onTaskCompleted(singleResponse);
+                            }
+                        }));
+                break;
+
+            default:
+                disposable.add(caller.getAPI().performGetMethodRAW(caller.getURL(), headers, caller.getParams())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableObserver<String>() {
+                            @Override
+                            public void onNext(String s) {
+                                singleResponse = s;
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                apiTaskDelegate.onErrorOccured(e.getMessage());
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                disposable.dispose();
+                                apiTaskDelegate.onTaskCompleted(singleResponse);
+                            }
+                        }));
+                break;
+        }
     }
 }

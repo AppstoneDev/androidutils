@@ -38,7 +38,7 @@ public interface Api {
     Observable<String> performDeleteMethodRAW(@Url String url, @HeaderMap HashMap<String, String> headers, @FieldMap HashMap<String, Object> params);
 
 
-    public enum API_METHODS {
+    public enum APIMETHODS {
         GET, POST, PUT, DELETE
     }
 

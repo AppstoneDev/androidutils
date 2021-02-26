@@ -26,7 +26,7 @@ public interface Api {
 
 
     @GET
-    Observable<String> performGetMethodRAW(@Url String url, @HeaderMap HashMap<String, String> headers, @QueryMap HashMap<String, Object> queries);
+    Observable<String> performGetMethodRAW(@Url String url, @HeaderMap HashMap<String, String> headers, @Body RequestBody body);
 
     @POST
     Observable<String> performPostMethodRAW(@Url String url, @HeaderMap HashMap<String, String> headers, @Body RequestBody body);

@@ -123,6 +123,10 @@ public class Net {
     public void doMakeSingleApiCallRAW(Api.APIMETHODS method, ApiCaller caller, HashMap<String, String> headers, SingleApiTaskDelegate apiTaskDelegate) {
         CompositeDisposable disposable = new CompositeDisposable();
 
+        JSONObject bodyObj = new JSONObject(caller.getParams());
+
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), bodyObj.toString());
+
         switch (method) {
             case PUT:
                 disposable.add(caller.getAPI().performPutMethodRAW(caller.getURL(), headers, caller.getParams())
@@ -171,9 +175,7 @@ public class Net {
                 break;
 
             case POST:
-                JSONObject bodyObj = new JSONObject(caller.getParams());
 
-                RequestBody body = RequestBody.create(MediaType.parse("application/json"), bodyObj.toString());
                 disposable.add(caller.getAPI().performPostMethodRAW(caller.getURL(), headers, body)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -197,7 +199,7 @@ public class Net {
                 break;
 
             default:
-                disposable.add(caller.getAPI().performGetMethodRAW(caller.getURL(), headers, caller.getParams())
+                disposable.add(caller.getAPI().performGetMethodRAW(caller.getURL(), headers, body)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<String>() {

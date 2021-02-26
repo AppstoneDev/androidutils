@@ -3,6 +3,8 @@ package utils;
 import android.annotation.SuppressLint;
 import android.content.Context;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +16,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 public class Net {
 
@@ -167,7 +171,10 @@ public class Net {
                 break;
 
             case POST:
-                disposable.add(caller.getAPI().performPostMethodRAW(caller.getURL(), headers, caller.getParams())
+                JSONObject bodyObj = new JSONObject(caller.getParams());
+
+                RequestBody body = RequestBody.create(MediaType.parse("application/json"), bodyObj.toString());
+                disposable.add(caller.getAPI().performPostMethodRAW(caller.getURL(), headers, body)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<String>() {

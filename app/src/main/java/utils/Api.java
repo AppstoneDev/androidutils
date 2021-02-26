@@ -5,6 +5,8 @@ import androidx.annotation.RawRes;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -27,7 +29,7 @@ public interface Api {
     Observable<String> performGetMethodRAW(@Url String url, @HeaderMap HashMap<String, String> headers, @QueryMap HashMap<String, Object> queries);
 
     @POST
-    Observable<String> performPostMethodRAW(@Url String url, @HeaderMap HashMap<String, String> headers, @FieldMap HashMap<String, Object> params);
+    Observable<String> performPostMethodRAW(@Url String url, @HeaderMap HashMap<String, String> headers, @Body RequestBody body);
 
     @PUT
     Observable<String> performPutMethodRAW(@Url String url, @HeaderMap HashMap<String, String> headers, @FieldMap HashMap<String, Object> params);
@@ -36,7 +38,7 @@ public interface Api {
     Observable<String> performDeleteMethodRAW(@Url String url, @HeaderMap HashMap<String, String> headers, @FieldMap HashMap<String, Object> params);
 
 
-    public enum APIMETHODS {
+    public enum API_METHODS {
         GET, POST, PUT, DELETE
     }
 

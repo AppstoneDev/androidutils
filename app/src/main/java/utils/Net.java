@@ -199,7 +199,7 @@ public class Net {
                 break;
 
             default:
-                disposable.add(caller.getAPI().performGetMethodRAW(caller.getURL(), headers, body)
+                disposable.add(caller.getAPI().performGetMethodRAW(caller.getURL(), headers, caller.getParams())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<String>() {

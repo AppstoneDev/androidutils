@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +24,8 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.HttpException;
 
 public class Net {
 
@@ -145,7 +148,17 @@ public class Net {
 
                             @Override
                             public void onError(Throwable e) {
-                                apiTaskDelegate.onErrorOccured(e.getMessage());
+                                String message = e.getMessage();
+
+                                if (e instanceof HttpException) {
+                                    ResponseBody body = ((HttpException) e).response().errorBody();
+                                    try {
+                                        message = body.string();
+                                    } catch (IOException ioException) {
+                                        ioException.printStackTrace();
+                                    }
+                                }
+                                apiTaskDelegate.onErrorOccured(message);
                             }
 
                             @Override
@@ -168,7 +181,17 @@ public class Net {
 
                             @Override
                             public void onError(Throwable e) {
-                                apiTaskDelegate.onErrorOccured(e.getMessage());
+                                String message = e.getMessage();
+
+                                if (e instanceof HttpException) {
+                                    ResponseBody body = ((HttpException) e).response().errorBody();
+                                    try {
+                                        message = body.string();
+                                    } catch (IOException ioException) {
+                                        ioException.printStackTrace();
+                                    }
+                                }
+                                apiTaskDelegate.onErrorOccured(message);
                             }
 
                             @Override
@@ -192,7 +215,17 @@ public class Net {
 
                             @Override
                             public void onError(Throwable e) {
-                                apiTaskDelegate.onErrorOccured(e.getMessage());
+                                String message = e.getMessage();
+
+                                if (e instanceof HttpException) {
+                                    ResponseBody body = ((HttpException) e).response().errorBody();
+                                    try {
+                                        message = body.string();
+                                    } catch (IOException ioException) {
+                                        ioException.printStackTrace();
+                                    }
+                                }
+                                apiTaskDelegate.onErrorOccured(message);
                             }
 
                             @Override
@@ -225,7 +258,17 @@ public class Net {
 
                             @Override
                             public void onError(@NonNull Throwable e) {
-                                apiTaskDelegate.onErrorOccured(e.getMessage());
+                                String message = e.getMessage();
+
+                                if (e instanceof HttpException) {
+                                    ResponseBody body = ((HttpException) e).response().errorBody();
+                                    try {
+                                        message = body.string();
+                                    } catch (IOException ioException) {
+                                        ioException.printStackTrace();
+                                    }
+                                }
+                                apiTaskDelegate.onErrorOccured(message);
                             }
 
                             @Override
@@ -248,7 +291,17 @@ public class Net {
 
                             @Override
                             public void onError(Throwable e) {
-                                apiTaskDelegate.onErrorOccured(e.getMessage());
+                                String message = e.getMessage();
+
+                                if (e instanceof HttpException) {
+                                    ResponseBody body = ((HttpException) e).response().errorBody();
+                                    try {
+                                        message = body.string();
+                                    } catch (IOException ioException) {
+                                        ioException.printStackTrace();
+                                    }
+                                }
+                                apiTaskDelegate.onErrorOccured(message);
                             }
 
                             @Override

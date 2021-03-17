@@ -3,8 +3,11 @@ package utils;
 import android.annotation.SuppressLint;
 import android.content.Context;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,10 +16,12 @@ import java.util.Map;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class Net {
@@ -187,6 +192,39 @@ public class Net {
 
                             @Override
                             public void onError(Throwable e) {
+                                apiTaskDelegate.onErrorOccured(e.getMessage());
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                disposable.dispose();
+                                apiTaskDelegate.onTaskCompleted(singleResponse);
+                            }
+                        }));
+                break;
+
+
+            case POST_IMAGE:
+                JSONArray array = (JSONArray) caller.getParams().get("files");
+
+                String fileName = array.optString(0);
+
+                File file = new File(fileName);
+                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), fileName);
+                MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+
+                disposable.add(caller.getAPI().uploadFiles(caller.getURL(), headers, multipartBody)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableObserver<String>() {
+
+                            @Override
+                            public void onNext(@NonNull String s) {
+                                singleResponse = s;
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable e) {
                                 apiTaskDelegate.onErrorOccured(e.getMessage());
                             }
 

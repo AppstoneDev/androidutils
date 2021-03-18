@@ -2,6 +2,7 @@ package utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.net.Uri;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -242,11 +243,15 @@ public class Net {
 
                 String fileName = array.optString(0);
 
+
+                MultipartBody.Part body1 = prepareFilePart("image", Uri.parse(fileName));
+
+
                 File file = new File(fileName);
                 RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), fileName);
-                MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+//                MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
 
-                disposable.add(caller.getAPI().uploadFiles(caller.getURL(), headers, multipartBody)
+                disposable.add(caller.getAPI().uploadFiles(caller.getURL(), headers, body1)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<String>() {
@@ -312,5 +317,28 @@ public class Net {
                         }));
                 break;
         }
+    }
+
+    @NonNull
+    private RequestBody createPartFromString(String descriptionString) {
+        return RequestBody.create(
+                okhttp3.MultipartBody.FORM, descriptionString);
+    }
+
+    @NonNull
+    private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
+        // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
+        // use the FileUtils to get the actual file by uri
+        File file = FileUtils.getFile(context, fileUri);
+
+        // create RequestBody instance from file
+        RequestBody requestFile =
+                RequestBody.create(
+                        MediaType.parse(context.getContentResolver().getType(fileUri)),
+                        file
+                );
+
+        // MultipartBody.Part is used to send also the actual file name
+        return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
     }
 }

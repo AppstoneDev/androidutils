@@ -43,7 +43,7 @@ public interface Api {
 
     @Multipart
     @POST
-    Observable<String> uploadFiles(@Url String url, @HeaderMap HashMap<String, String> headers, @Part MultipartBody.Part file);
+    Observable<String> uploadFiles(@Url String url, @HeaderMap HashMap<String, String> headers, @Part MultipartBody.Part[] file);
 
 
     public enum APIMETHODS {

@@ -241,17 +241,21 @@ public class Net {
             case POST_IMAGE:
                 JSONArray array = (JSONArray) caller.getParams().get("files");
 
-                String fileName = array.optString(0);
+                ArrayList<String> filesList = new ArrayList<>();
+                for (int i = 0; i < array.length(); i++) {
+                    filesList.add(array.optString(i));
+                }
 
+                MultipartBody.Part[] imageBody = new MultipartBody.Part[filesList.size()];
+                for (int x = 0; x < filesList.size(); x++) {
+                    String fileListItem = filesList.get(x);
+                    File imgFile = FileUtils.getFile(context, Uri.fromFile(new File(fileListItem)));
+                    RequestBody fileBody = RequestBody.create(MediaType.parse("multipart/form-data"), imgFile);
+                    MultipartBody.Part multiPartBody = MultipartBody.Part.createFormData("file", imgFile.getName(), fileBody);
+                    imageBody[x] = multiPartBody;
+                }
 
-                MultipartBody.Part body1 = prepareFilePart("image", Uri.parse(fileName));
-
-
-                File file = new File(fileName);
-                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), fileName);
-//                MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-
-                disposable.add(caller.getAPI().uploadFiles(caller.getURL(), headers, body1)
+                disposable.add(caller.getAPI().uploadFiles(caller.getURL(), headers, imageBody)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<String>() {

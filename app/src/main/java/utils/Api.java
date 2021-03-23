@@ -12,6 +12,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
@@ -41,7 +42,7 @@ public interface Api {
     @PATCH
     Observable<String> performPatchMethodRAW(@Url String url, @HeaderMap HashMap<String, String> headers, @Body RequestBody body);
 
-    @DELETE
+    @HTTP(method = "DELETE", hasBody = true)
     Observable<String> performDeleteMethodRAW(@Url String url, @HeaderMap HashMap<String, String> headers, @Body RequestBody body);
 
 

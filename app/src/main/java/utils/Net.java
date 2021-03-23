@@ -238,6 +238,41 @@ public class Net {
                 break;
 
 
+            case PATCH:
+
+                disposable.add(caller.getAPI().performPatchMethodRAW(caller.getURL(), headers, body)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableObserver<String>() {
+                            @Override
+                            public void onNext(String s) {
+                                singleResponse = s;
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                String message = e.getMessage();
+
+                                if (e instanceof HttpException) {
+                                    ResponseBody body = ((HttpException) e).response().errorBody();
+                                    try {
+                                        message = body.string();
+                                    } catch (IOException ioException) {
+                                        ioException.printStackTrace();
+                                    }
+                                }
+                                apiTaskDelegate.onErrorOccured(message);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                disposable.dispose();
+                                apiTaskDelegate.onTaskCompleted(singleResponse);
+                            }
+                        }));
+                break;
+
+
             case POST_IMAGE:
                 JSONArray array = (JSONArray) caller.getParams().get("files");
 

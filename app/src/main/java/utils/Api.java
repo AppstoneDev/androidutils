@@ -14,6 +14,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.Multipart;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
@@ -37,6 +38,9 @@ public interface Api {
     @PUT
     Observable<String> performPutMethodRAW(@Url String url, @HeaderMap HashMap<String, String> headers, @FieldMap HashMap<String, Object> params);
 
+    @PATCH
+    Observable<String> performPatchMethodRAW(@Url String url, @HeaderMap HashMap<String, String> headers, @Body RequestBody body);
+
     @DELETE
     Observable<String> performDeleteMethodRAW(@Url String url, @HeaderMap HashMap<String, String> headers, @FieldMap HashMap<String, Object> params);
 
@@ -47,7 +51,7 @@ public interface Api {
 
 
     public enum APIMETHODS {
-        GET, POST, PUT, DELETE, POST_IMAGE
+        GET, POST, PUT, DELETE, POST_IMAGE, PATCH
     }
 
 }

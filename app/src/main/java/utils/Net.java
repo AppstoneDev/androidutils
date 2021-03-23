@@ -171,7 +171,7 @@ public class Net {
                 break;
 
             case DELETE:
-                disposable.add(caller.getAPI().performDeleteMethodRAW(caller.getURL(), headers, caller.getParams())
+                disposable.add(caller.getAPI().performDeleteMethodRAW(caller.getURL(), headers, body)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<String>() {

@@ -42,7 +42,7 @@ public interface Api {
     Observable<String> performPatchMethodRAW(@Url String url, @HeaderMap HashMap<String, String> headers, @Body RequestBody body);
 
     @DELETE
-    Observable<String> performDeleteMethodRAW(@Url String url, @HeaderMap HashMap<String, String> headers, @FieldMap HashMap<String, Object> params);
+    Observable<String> performDeleteMethodRAW(@Url String url, @HeaderMap HashMap<String, String> headers, @Body RequestBody body);
 
 
     @Multipart

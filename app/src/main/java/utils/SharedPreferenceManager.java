@@ -15,7 +15,6 @@ public class SharedPreferenceManager {
     private Context mContext;
 
 
-    @SuppressLint("CommitPrefEdits")
     public SharedPreferenceManager(Context context, String prefName) {
         mContext = context;
         SHARED_PREF_NAME = prefName;

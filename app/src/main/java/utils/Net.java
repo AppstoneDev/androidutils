@@ -131,7 +131,7 @@ public class Net {
     public void doMakeSecureAPICall(Api.APIMETHODS method, ApiCaller caller, HashMap<String, String> headers, SingleApiTaskDelegate apiTaskDelegate) {
         try {
             CompositeDisposable disposable = new CompositeDisposable();
-            String decryptedString = AESHelper.decrypt(ApiHandler.getSecretKey(), new JSONObject(caller.getParams()).toString());
+            String decryptedString = AESHelper.encrypt(ApiHandler.getSecretKey(), new JSONObject(caller.getParams()).toString());
             HashMap<String, Object> params = new HashMap<>();
             params.put("data", decryptedString);
 

@@ -128,6 +128,43 @@ public class Net {
                 }));
     }
 
+    public void doMakeSecureAPICall(Api.APIMETHODS method, ApiCaller caller, HashMap<String, String> headers, SingleApiTaskDelegate apiTaskDelegate) {
+        try {
+            CompositeDisposable disposable = new CompositeDisposable();
+            String decryptedString = AESHelper.decrypt(ApiHandler.getSecretKey(), new JSONObject(caller.getParams()).toString());
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("data", decryptedString);
+
+            switch (method) {
+                case POST:
+                    disposable.add(caller.getAPI().getReponse(caller.getURL(), headers, params)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribeWith(new DisposableObserver<String>() {
+                                @Override
+                                public void onNext(String s) {
+                                    singleResponse = s;
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    apiTaskDelegate.onErrorOccured(e.getMessage());
+                                }
+
+                                @Override
+                                public void onComplete() {
+                                    disposable.dispose();
+                                    apiTaskDelegate.onTaskCompleted(singleResponse);
+                                }
+                            }));
+                    break;
+            }
+
+        } catch (Exception e) {
+            apiTaskDelegate.onErrorOccured(e.getMessage());
+        }
+    }
+
 
     public void doMakeSingleApiCallRAW(Api.APIMETHODS method, ApiCaller caller, HashMap<String, String> headers, SingleApiTaskDelegate apiTaskDelegate) {
         CompositeDisposable disposable = new CompositeDisposable();

@@ -13,8 +13,9 @@ public class ApiHandler {
     private Api api;
 
     private static String URL;
+    private static String SECRET_KEY;
 
-    public ApiHandler(){
+    public ApiHandler() {
         HttpLoggingInterceptor.Level logLevel = HttpLoggingInterceptor.Level.BODY;
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(logLevel);
@@ -41,8 +42,15 @@ public class ApiHandler {
     }
 
 
-
-    public static void setBaseURL(String baseURL){
+    public static void setBaseURL(String baseURL) {
         URL = baseURL;
+    }
+
+    public static void setSecretKey(String secretKey) {
+        SECRET_KEY = secretKey;
+    }
+
+    public static String getSecretKey(){
+        return SECRET_KEY;
     }
 }

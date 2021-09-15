@@ -165,6 +165,19 @@ public class Net {
         }
     }
 
+    public HashMap<String, Object> convertToSecureParams(ApiCaller caller) {
+        HashMap<String, Object> params = new HashMap<>();
+        try {
+            CompositeDisposable disposable = new CompositeDisposable();
+            String decryptedString = AESHelper.encrypt(ApiHandler.getSecretKey(), new JSONObject(caller.getParams()).toString());
+            params.put("data", decryptedString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return params;
+    }
+
 
     public void doMakeSingleApiCallRAW(Api.APIMETHODS method, ApiCaller caller, HashMap<String, String> headers, SingleApiTaskDelegate apiTaskDelegate) {
         CompositeDisposable disposable = new CompositeDisposable();

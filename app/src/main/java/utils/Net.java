@@ -165,6 +165,70 @@ public class Net {
         }
     }
 
+    public void doMakeSecureAPICallImage(Api.APIMETHODS method, ApiCaller caller, HashMap<String, String> headers, HashMap<String, String> images, SingleApiTaskDelegate apiTaskDelegate) {
+        try {
+            CompositeDisposable disposable = new CompositeDisposable();
+            String decryptedString = AESHelper.encrypt(ApiHandler.getSecretKey(), new JSONObject(caller.getParams()).toString());
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("data", decryptedString);
+            HashMap<String, RequestBody> map = new HashMap<>();
+            RequestBody textBody = RequestBody.create(MediaType.parse("text/plain"), decryptedString);
+            map.put("data", textBody);
+            MultipartBody.Part[] imageBody = new MultipartBody.Part[images.size()];
+            ArrayList<MultipartBody.Part> imageBodies = new ArrayList<>();
+            for (Map.Entry<String, String> entry : images.entrySet()) {
+                MultipartBody.Part multiPartBody = null;
+                String fileName = entry.getValue();
+                String uploadName = entry.getKey();
+                File imgFile = FileUtils.getFile(context, Uri.fromFile(new File(fileName)));
+                RequestBody fileBody = RequestBody.create(MediaType.parse("file/*"), imgFile);
+                multiPartBody = MultipartBody.Part.createFormData(uploadName, imgFile.getName(), fileBody);
+                imageBodies.add(multiPartBody);
+            }
+
+
+            for (int x = 0; x < imageBodies.size(); x++) {
+                imageBody[x] = imageBodies.get(x);
+            }
+            disposable.add(caller.getAPI().uploadMultipleFiles(caller.getURL(), headers, imageBody, map)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(new DisposableObserver<String>() {
+
+                        @Override
+                        public void onNext(@NonNull String s) {
+                            singleResponse = s;
+                        }
+
+                        @Override
+                        public void onError(@NonNull Throwable e) {
+                            String message = e.getMessage();
+
+                            if (e instanceof HttpException) {
+                                ResponseBody body = ((HttpException) e).response().errorBody();
+                                try {
+                                    message = body.string();
+                                } catch (IOException ioException) {
+                                    ioException.printStackTrace();
+                                }
+                            }
+                            Exception ex = new Exception(e);
+                            apiTaskDelegate.onErrorOccured(ex.getMessage());
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            disposable.dispose();
+                            apiTaskDelegate.onTaskCompleted(singleResponse);
+                        }
+                    }));
+
+
+        } catch (Exception e) {
+            apiTaskDelegate.onErrorOccured(e.getMessage());
+        }
+    }
+
     public HashMap<String, Object> convertToSecureParams(ApiCaller caller) {
         HashMap<String, Object> params = new HashMap<>();
         try {

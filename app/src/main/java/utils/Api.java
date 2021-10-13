@@ -19,6 +19,7 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 
@@ -49,6 +50,10 @@ public interface Api {
     @Multipart
     @POST
     Observable<String> uploadFiles(@Url String url, @HeaderMap HashMap<String, String> headers, @Part MultipartBody.Part[] file);
+
+    @Multipart
+    @POST
+    Observable<String> uploadMultipleFiles(@Url String url, @HeaderMap HashMap<String, String> headers, @Part MultipartBody.Part[] file, @PartMap HashMap<String, RequestBody> data);
 
 
     public enum APIMETHODS {

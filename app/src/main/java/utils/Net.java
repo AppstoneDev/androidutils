@@ -177,12 +177,11 @@ public class Net {
             MultipartBody.Part[] imageBody = new MultipartBody.Part[images.size()];
             ArrayList<MultipartBody.Part> imageBodies = new ArrayList<>();
             for (Map.Entry<String, String> entry : images.entrySet()) {
-                MultipartBody.Part multiPartBody = null;
                 String fileName = entry.getValue();
                 String uploadName = entry.getKey();
                 File imgFile = FileUtils.getFile(context, Uri.fromFile(new File(fileName)));
                 RequestBody fileBody = RequestBody.create(MediaType.parse("file/*"), imgFile);
-                multiPartBody = MultipartBody.Part.createFormData(uploadName, imgFile.getName(), fileBody);
+                MultipartBody.Part multiPartBody = MultipartBody.Part.createFormData(uploadName, imgFile.getName(), fileBody);
                 imageBodies.add(multiPartBody);
             }
 

@@ -190,7 +190,7 @@ public class Net {
             for (int x = 0; x < imageBodies.size(); x++) {
                 imageBody[x] = imageBodies.get(x);
             }
-            disposable.add(caller.getAPI().uploadMultipleFilesNormal(caller.getURL(), headers, imageBody, caller.getParams())
+            disposable.add(caller.getAPI().uploadMultipleFilesNormal(caller.getURL(), headers, imageBody, new HashMap<>())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(new DisposableObserver<String>() {

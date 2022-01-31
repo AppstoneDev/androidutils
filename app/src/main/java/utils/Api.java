@@ -57,7 +57,7 @@ public interface Api {
 
     @Multipart
     @POST
-    Observable<String> uploadMultipleFilesNormal(@Url String url, @HeaderMap HashMap<String, String> headers, @Part MultipartBody.Part[] file, @FieldMap HashMap<String, Object> params);
+    Observable<String> uploadMultipleFilesNormal(@Url String url, @HeaderMap HashMap<String, String> headers, @Part MultipartBody.Part[] file, @PartMap HashMap<String, RequestBody> data);
 
 
     public enum APIMETHODS {

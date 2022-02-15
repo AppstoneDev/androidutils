@@ -169,12 +169,17 @@ public class Net {
     public void doMakeAPICallImage(Api.APIMETHODS method, ApiCaller caller, HashMap<String, String> headers, HashMap<String, String> images, SingleApiTaskDelegate apiTaskDelegate) {
         try {
             CompositeDisposable disposable = new CompositeDisposable();
-//            String decryptedString = AESHelper.encrypt(ApiHandler.getSecretKey(), new JSONObject(caller.getParams()).toString());
-//            HashMap<String, Object> params = new HashMap<>();
-//            params.put("data", decryptedString);
-//            HashMap<String, RequestBody> map = new HashMap<>();
-//            RequestBody textBody = RequestBody.create(MediaType.parse("text/plain"), decryptedString);
-//            map.put("data", textBody);
+
+            HashMap<String, RequestBody> bodyMap = new HashMap<>();
+            HashMap<String, Object> params = caller.getParams();
+            for(
+                    Map.Entry<?, ?> e: params.entrySet()){
+                System.out.println("Key " + e.getKey());
+                System.out.println("Value " + e.getValue());
+                RequestBody textBody = RequestBody.create(MediaType.parse("text/plain"), e.getValue().toString());
+                bodyMap.put(e.getKey().toString(), textBody);
+            }
+
             MultipartBody.Part[] imageBody = new MultipartBody.Part[images.size()];
             ArrayList<MultipartBody.Part> imageBodies = new ArrayList<>();
             for (Map.Entry<String, String> entry : images.entrySet()) {
@@ -190,7 +195,7 @@ public class Net {
             for (int x = 0; x < imageBodies.size(); x++) {
                 imageBody[x] = imageBodies.get(x);
             }
-            disposable.add(caller.getAPI().uploadMultipleFilesNormal(caller.getURL(), headers, imageBody, new HashMap<>())
+            disposable.add(caller.getAPI().uploadMultipleFilesNormal(caller.getURL(), headers, imageBody, bodyMap)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(new DisposableObserver<String>() {

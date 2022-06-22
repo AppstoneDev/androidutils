@@ -98,7 +98,7 @@ public class DateUtils {
 
         DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
         inputFormat.setTimeZone(TimeZone.getTimeZone("IST"));
-        DateFormat outputFormat = new SimpleDateFormat("hh:mm:ss a", Locale.getDefault());
+        DateFormat outputFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
 
         try {
             Date date = inputFormat.parse(inputTime);

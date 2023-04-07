@@ -644,7 +644,7 @@ public class DateUtils {
         }
 
         SimpleDateFormat desiredFormat;
-        desiredFormat = new SimpleDateFormat("hh:mm", locale);
+        desiredFormat = new SimpleDateFormat("HH:mm", locale);
 
         return desiredFormat.format(date.getTime());
     }

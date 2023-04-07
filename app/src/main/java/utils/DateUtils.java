@@ -638,6 +638,17 @@ public class DateUtils {
         return desiredFormat.format(date.getTime());
     }
 
+    public static String get24HourFormat(Context context, Date date, Locale locale) {
+        if (date == null) {
+            return "";
+        }
+
+        SimpleDateFormat desiredFormat;
+        desiredFormat = new SimpleDateFormat("hh:mm", locale);
+
+        return desiredFormat.format(date.getTime());
+    }
+
     public static String getDateAsddMMMyyyy_Input_yyyyMMdd(String inputDate) {
         String formatedDate = "";
 
